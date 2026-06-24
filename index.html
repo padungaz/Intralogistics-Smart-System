@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Intralogistics Smart System - Full Diagrams</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: #f1f5f9;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .sidebar {
+            width: 320px;
+            background: #0f172a;
+            color: #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+            z-index: 10;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+        .sidebar-header {
+            padding: 20px 20px 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .sidebar-header h1 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #f8fafc;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .sidebar-header p {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            margin-top: 4px;
+        }
+        .section-title {
+            padding: 16px 20px 6px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #64748b;
+            font-weight: 700;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 6px;
+        }
+        .nav-item {
+            padding: 10px 20px 10px 32px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+            font-size: 0.88rem;
+            color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-item:hover {
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+        }
+        .nav-item.active {
+            background: rgba(14, 165, 233, 0.12);
+            color: #38bdf8;
+            border-left-color: #0ea5e9;
+            font-weight: 600;
+        }
+        .badge-new {
+            background: #0ea5e9;
+            color: #fff;
+            font-size: 0.6rem;
+            padding: 1px 8px;
+            border-radius: 12px;
+            margin-left: auto;
+        }
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+        .toolbar {
+            background: #fff;
+            padding: 12px 24px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .toolbar h2 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        .toolbar-actions {
+            display: flex;
+            gap: 6px;
+        }
+        .btn {
+            background: #fff;
+            border: 1px solid #cbd5e1;
+            padding: 5px 14px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #334155;
+        }
+        .btn:hover {
+            background: #f1f5f9;
+            border-color: #94a3b8;
+        }
+        .diagram-container {
+            flex: 1;
+            overflow: auto;
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            background: #f1f5f9;
+        }
+        .mermaid-wrapper {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transform-origin: top center;
+            transition: transform 0.15s ease;
+            min-width: 850px;
+            width: 100%;
+            max-width: 1400px;
+        }
+        .mermaid {
+            display: flex;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .mermaid[data-processed="true"] {
+            opacity: 1;
+        }
+        .footer {
+            background: #fff;
+            padding: 6px 24px;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.75rem;
+            color: #64748b;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        @media (max-width: 768px) {
+            .sidebar { width: 240px; }
+            .nav-item { padding: 8px 12px 8px 20px; font-size: 0.8rem; }
+            .mermaid-wrapper { min-width: auto; padding: 16px; }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js">
+    </script>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1>📦 Intralogistics</h1>
+            <p>MPS Smart Station + Drone Delivery</p>
+        </div>
+
+        <div class="section-title">🏭 MPS SMART STATION</div>
+        <div class="nav-item active" data-id="1">1. AI Vision Inspection</div>
+        <div class="nav-item" data-id="2">2. Sorting &amp; Packing</div>
+        <div class="nav-item" data-id="3">3. MPS Architecture</div>
+
+        <div class="section-title">🚁 DRONE DELIVERY</div>
+        <div class="nav-item" data-id="4">4. Use Case Diagram</div>
+        <div class="nav-item" data-id="5">5. Activity Diagram</div>
+        <div class="nav-item" data-id="6">6. Sequence Diagram</div>
+        <div class="nav-item" data-id="7">7. High-Level Architecture</div>
+
+        <div class="section-title">✨ BỔ SUNG MỚI</div>
+        <div class="nav-item" data-id="8">8. System Context <span class="badge-new">New</span></div>
+        <div class="nav-item" data-id="9">9. Order State Machine <span class="badge-new">New</span></div>
+        <div class="nav-item" data-id="10">10. Data Flow Diagram <span class="badge-new">New</span></div>
+        <div class="nav-item" data-id="11">11. Deployment Diagram <span class="badge-new">New</span></div>
+    </div>
+
+    <div class="main">
+        <div class="toolbar">
+            <h2 id="diagram-title">1. AI Vision Inspection</h2>
+            <div class="toolbar-actions">
+                <button class="btn" onclick="zoomIn()">🔍 +</button>
+                <button class="btn" onclick="zoomOut()">🔍 −</button>
+                <button class="btn" onclick="resetZoom()">⟲ Mặc định</button>
+            </div>
+        </div>
+        <div class="diagram-container" id="view-container">
+            <div class="mermaid-wrapper" id="mermaid-wrapper">
+                <div class="mermaid" id="mermaid-container"></div>
+            </div>
+        </div>
+        <div class="footer">Hệ thống Intralogistics thông minh – Tích hợp AI Vision, PLC Siemens, Robot FAIRINO &amp; UAV giao hàng tự động</div>
+    </div>
+
+    <script>
+        // ================================================================
+        // DANH SÁCH 11 SƠ ĐỒ – ĐÃ SỬA LỖI NGOẶC TRÒN (OK++ / NG++)
+        // ================================================================
+        const diagrams = {
+            // -------------------- 1. AI VISION --------------------
+            1: {
+                title: "1. AI Vision Inspection (Cập nhật)",
+                code: `
+                    flowchart TD
+                        A([Start]) --> B[MPS cấp sản phẩm]
+                        B --> C{Camera hoạt động?}
+                        C -- NO --> D[Gửi Alarm & Reconnect]
+                        D --> E{Reconnect OK?}
+                        E -- NO --> F([Dừng hệ thống - Báo lỗi])
+                        E -- YES --> C
+
+                        C -- YES --> G[Camera chụp ảnh]
+                        G --> H[Đọc QR Code]
+                        H --> I{QR hợp lệ?}
+                        I -- NO --> J[Loại bỏ sản phẩm & Lưu log] --> K([End])
+
+                        I -- YES --> L[Nhận diện màu sắc - HSV]
+                        L --> M[Nhận diện hình dạng - Contour]
+                        M --> N[Đo kích thước]
+                        N --> O[So sánh với tiêu chuẩn]
+                        O --> P{Đạt yêu cầu?}
+                        P -- YES --> Q[Gán OK & Cập nhật GUI OK++]
+                        P -- NO --> R[Gán NG & Cập nhật GUI NG++]
+                        Q --> S[Gửi kết quả PLC]
+                        R --> S
+                        S --> T[Lưu Database]
+                        T --> U[Update GUI Monitoring]
+                        U --> V([End])
+                `
+            },
+            // -------------------- 2. SORTING & PACKING --------------------
+            2: {
+                title: "2. MPS Sorting & Packing (Cập nhật)",
+                code: `
+                    flowchart TD
+                        A([Start]) --> B[PLC nhận kết quả AI]
+                        B --> C{Sản phẩm đạt?}
+                        C -- NO --> D[Đưa vào khu vực NG] --> E([End])
+
+                        C -- YES --> F{Robot FAIRINO rảnh?}
+                        F -- NO --> G[Chờ & Retry] --> F
+                        F -- YES --> H[Robot gắp sản phẩm]
+                        H --> I{Robot hoạt động bình thường?}
+                        I -- NO --> J[Dừng khẩn cấp & Báo Alarm] --> K([End])
+
+                        I -- YES --> L[Robot phân loại theo màu/hình dạng]
+                        L --> M[Robot sắp xếp vào khay]
+                        M --> N[Đưa tới trạm đóng gói]
+                        N --> O[Đóng gói tự động]
+                        O --> P{Đóng gói đạt?}
+                        P -- NO --> Q[Chuyển kiểm tra thủ công] --> R([End])
+                        P -- YES --> S[Đưa tới Pickup Station]
+                        S --> T[Cập nhật trạng thái: Ready For Delivery]
+                        T --> U[Gửi tín hiệu lên Backend]
+                        U --> V([End])
+                `
+            },
+            // -------------------- 3. MPS ARCHITECTURE --------------------
+            3: {
+                title: "3. MPS Architecture (Cập nhật)",
+                code: `
+                    flowchart LR
+                        subgraph Factory_Floor ["🏭 Factory Floor"]
+                            CAM[AI Vision Camera]
+                            PLC[PLC Siemens S7-1200]
+                            ROBOT[Robot FAIRINO]
+                            CONV[MPS Conveyor]
+                            PACK[Packing Station]
+                            PICK[Pickup Station]
+                        end
+
+                        subgraph IT_Infra ["☁️ IT Infrastructure"]
+                            API[Backend API]
+                            DB[(PostgreSQL)]
+                            MQ[MQTT Broker]
+                        end
+
+                        CAM -- "Snap7" --> PLC
+                        PLC -- "TCP/IP" --> ROBOT
+                        PLC -- "Digital I/O" --> CONV
+                        ROBOT --> PACK
+                        PACK --> PICK
+                        PLC -- "OPC UA / REST" --> API
+                        PICK -- "MQTT / REST" --> API
+                        API --> DB
+                        API <--> MQ
+                `
+            },
+            // -------------------- 4. USE CASE --------------------
+            4: {
+                title: "4. Use Case Diagram (Cập nhật)",
+                code: `
+                    graph TD
+                        subgraph System["📦 Hệ thống Intralogistics"]
+                            A[Khách hàng] --> B(Đăng ký/Đăng nhập)
+                            A --> C(Tạo đơn hàng)
+                            A --> D(Theo dõi trạng thái & vị trí realtime)
+                            A --> E(Xem lịch sử giao hàng)
+
+                            F[Quản trị viên] --> G(Quản lý Drone & Đơn hàng)
+                            F --> H(Theo dõi Telemetry & Dashboard)
+                            F --> I(Điều phối nhiệm vụ thủ công)
+                            F --> J(Kích hoạt Return Home / Emergency Stop)
+                            F --> K(Xem báo cáo thống kê & Logs)
+                            F --> L(Cấu hình hệ thống)
+
+                            M[Backend Scheduler] --> N(Tự động tìm Drone khả dụng)
+                            M --> O(Tự động sinh Mission & Waypoints)
+                            M --> P(Quản lý hàng tồn tại Pickup Station)
+
+                            Q[Drone PX4] --> R(Thực thi Mission)
+                            Q --> S(Gửi Telemetry qua MAVLink)
+                            Q --> T(Báo cáo trạng thái hoàn thành/Lỗi)
+                        end
+                `
+            },
+            // -------------------- 5. ACTIVITY DELIVERY --------------------
+            5: {
+                title: "5. Activity – Delivery (Cập nhật)",
+                code: `
+                    flowchart TD
+                        Start([Pickup Station Ready]) --> A[Backend tạo Order & Mission]
+                        A --> B[System tìm Drone khả dụng gần nhất]
+                        B --> C{Drone khả dụng?}
+                        C -- Không --> D[Xếp hàng chờ & Retry] --> B
+
+                        C -- Có --> E[Gửi Mission Waypoints lên Drone]
+                        E --> F[Drone cất cánh & bay đến điểm nhận]
+                        F --> G[Drone Precision Landing - AprilTag]
+                        G --> H{AprilTag phát hiện?}
+                        H -- Không --> I[Hover chờ & Retry] --> G
+                        H -- Có --> J[Drone hạ cánh & nhận hàng] --> K[Drone bay đến điểm giao]
+
+                        K --> L[Drone xác định AprilTag tại điểm giao]
+                        L --> M{AprilTag phát hiện?}
+                        M -- Không --> N[Hover & Retry] --> L
+                        M -- Có --> O[Drone hạ cánh & thả hàng]
+
+                        O --> P{Cảm biến xác nhận thả hàng?}
+                        P -- Không --> Q[Log lỗi & Báo Admin] --> R([Emergency])
+                        P -- Có --> S[Drone Return Home RTL]
+
+                        S --> T[Cập nhật Order: DELIVERED]
+                        T --> U[Push WebSocket realtime]
+                        U --> V([End])
+
+                        F -.-> |GPS Loss| X[Hover & RTL]
+                        K -.-> |Battery Low| Y[Abort & RTL]
+                        O -.-> |Comms Loss| Z[Safe Mode & RTL]
+                `
+            },
+            // -------------------- 6. SEQUENCE --------------------
+            6: {
+                title: "6. Sequence – Order & Mission (Cập nhật)",
+                code: `
+                    sequenceDiagram
+                        actor Customer
+                        participant ClientApp
+                        participant Backend_API
+                        participant WebSocket
+                        participant OrderModule
+                        participant DroneGateway
+                        participant MissionModule
+                        participant DronePX4
+                        participant DB
+
+                        Customer->>ClientApp: Chọn vị trí, tạo Order
+                        ClientApp->>Backend_API: POST /api/v1/orders
+                        Backend_API->>OrderModule: create_order
+                        OrderModule->>DB: Insert Order (PENDING)
+                        OrderModule->>DroneGateway: find_available_drone
+                        DroneGateway->>DB: Query drones (IDLE)
+                        DroneGateway-->>OrderModule: Drone Object
+
+                        OrderModule->>MissionModule: schedule_mission
+                        MissionModule->>DB: Insert Mission (SCHEDULED)
+                        MissionModule->>DroneGateway: send_mission
+                        DroneGateway->>DronePX4: MAVLink Mission Upload
+                        DronePX4-->>DroneGateway: ACK
+
+                        alt ACK Success
+                            DroneGateway-->>MissionModule: Success
+                            MissionModule->>DB: Mission (IN_PROGRESS)
+                            OrderModule->>DB: Order (ASSIGNED)
+                            Backend_API-->>ClientApp: 201 Created
+                            Backend_API->>WebSocket: Broadcast
+                            WebSocket-->>ClientApp: Realtime Update
+                            ClientApp-->>Customer: Thông báo
+                        else ACK Fail
+                            DroneGateway-->>MissionModule: Failure
+                            MissionModule->>DB: Mission (FAILED)
+                            OrderModule->>DB: Order (FAILED_DISPATCH)
+                            Backend_API-->>ClientApp: 500 Error
+                            Backend_API->>WebSocket: Broadcast Error
+                        end
+
+                        alt Drone Error
+                            DronePX4->>DroneGateway: MAVLink Alert
+                            DroneGateway->>MissionModule: Emergency
+                            MissionModule->>DB: Mission (ABORTED)
+                            OrderModule->>DB: Order (FAILED)
+                            DroneGateway->>DronePX4: Command RTL
+                        end
+                `
+            },
+            // -------------------- 7. HIGH LEVEL ARCHITECTURE --------------------
+            7: {
+                title: "7. High-Level Architecture (Cập nhật)",
+                code: `
+                    flowchart LR
+                        subgraph MPS["MPS Smart Station"]
+                            PLC[PLC S7-1200]
+                            AI[AI Vision]
+                            ROB[Robot FAIRINO]
+                            CONV[Conveyor]
+                            PICK[Pickup Station]
+                        end
+
+                        subgraph Cloud["☁️ Cloud / Backend"]
+                            API[API Gateway]
+                            WS[WebSocket Server]
+                            MQ[MQTT Broker]
+                            AUTH[Auth Service]
+                            ORDER[Order Service]
+                            MISSION[Mission Service]
+                            DRONE_MGMT[Drone Fleet Mgmt]
+                            DB[(PostgreSQL)]
+                            REDIS[(Redis)]
+                            MONITOR[Monitoring]
+                            LOGGING[ELK Logging]
+                        end
+
+                        subgraph Edge["📡 Edge Layer"]
+                            GW[Drone Gateway]
+                            RPI1[Raspberry Pi 5 - Drone 1]
+                            RPI2[Raspberry Pi 5 - Drone 2]
+                        end
+
+                        subgraph Client["📱 Client Layer"]
+                            APP[Client App]
+                            ADMIN[Admin Dashboard]
+                        end
+
+                        PICK -- "MQTT / REST" --> API
+                        PLC -- "OPC UA" --> API
+                        AI -- "Snap7" --> PLC
+                        PLC -- "TCP/IP" --> ROB
+
+                        API --> ORDER
+                        ORDER --> MISSION
+                        MISSION --> DRONE_MGMT
+                        API --> AUTH
+                        DRONE_MGMT --> MQ
+                        MISSION --> GW
+                        GW -- "MAVLink" --> RPI1
+                        GW -- "MAVLink" --> RPI2
+                        RPI1 -- "MAVLink" --> GW
+                        RPI2 -- "MAVLink" --> GW
+                        GW -- "MQTT / WS" --> API
+
+                        API --> DB
+                        API --> REDIS
+                        API --> MONITOR
+                        API --> LOGGING
+
+                        WS --> APP
+                        WS --> ADMIN
+                        APP --> API
+                        ADMIN --> API
+                `
+            },
+            // -------------------- 8. SYSTEM CONTEXT --------------------
+            8: {
+                title: "8. System Context Diagram (New)",
+                code: `
+                    graph TD
+                        subgraph Boundary["📦 Intralogistics Smart System"]
+                            Core[Core System]
+                        end
+
+                        User[👤 Khách hàng] -->|Tạo đơn, theo dõi| Core
+                        Admin[🛠️ Quản trị viên] -->|Giám sát, cấu hình| Core
+                        Supplier[🏭 Nhà cung cấp] -->|Cung cấp phôi| Core
+                        Maintenance[🔧 Bảo trì] -->|Nhận cảnh báo| Core
+                        ExternalAPI[🌐 Bản đồ / GPS] -->|Cung cấp vị trí| Core
+
+                        Core -->|Thông báo| User
+                        Core -->|Báo cáo, Telemetry| Admin
+                        Core -->|Yêu cầu vật tư| Supplier
+                        Core -->|Yêu cầu bảo trì| Maintenance
+                `
+            },
+            // -------------------- 9. ORDER STATE MACHINE --------------------
+            9: {
+                title: "9. Order State Machine (New)",
+                code: `
+                    graph TD
+                        CREATED([CREATED]) -->|Tìm Drone & Gán Mission| ASSIGNED
+                        ASSIGNED -->|Drone đến Pickup| PICKING
+                        PICKING -->|Drone cất cánh| DELIVERING
+                        DELIVERING -->|Giao thành công| DELIVERED([DELIVERED])
+
+                        CREATED -->|Hủy đơn| CANCELLED([CANCELLED])
+                        ASSIGNED -->|Hết giờ chờ| FAILED([FAILED])
+                        PICKING -->|Lỗi nhận hàng| FAILED
+                        DELIVERING -->|GPS loss, Low Battery| FAILED
+
+                        DELIVERED -->|Quá hạn không xác nhận| COMPLAINT[Khiếu nại]
+                `
+            },
+            // -------------------- 10. DATA FLOW DIAGRAM --------------------
+            10: {
+                title: "10. Data Flow Diagram – DFD Level 0 (New)",
+                code: `
+                    flowchart LR
+                        subgraph Sources["Nguồn dữ liệu"]
+                            CAM[Camera AI Vision]
+                            PLC[PLC S7-1200]
+                            DRONE[Drone PX4]
+                            USER[Khách hàng / Admin]
+                        end
+
+                        subgraph Processes["Xử lý"]
+                            P1[Nhận diện & Kiểm tra]
+                            P2[Điều phối Sản xuất]
+                            P3[Quản lý Mission]
+                            P4[Giao hàng]
+                        end
+
+                        subgraph Stores["Lưu trữ"]
+                            DB[(Database)]
+                            LOG[(Logs)]
+                            CACHE[(Redis Cache)]
+                        end
+
+                        CAM -->|Hình ảnh, QR, Size| P1
+                        P1 -->|OK/NG, Tọa độ| P2
+                        P1 -->|Kết quả kiểm tra| DB
+
+                        P2 -->|Lệnh điều khiển| PLC
+                        PLC -->|Trạng thái| P2
+                        P2 -->|Trạng thái sản xuất| DB
+
+                        USER -->|Order| P3
+                        DB -->|Drone info| P3
+                        P3 -->|Mission, Waypoints| P4
+                        P4 -->|Telemetry| P3
+                        P3 -->|Trạng thái Order| DB
+                        P3 -->|Cập nhật| CACHE
+
+                        P4 -->|Lệnh bay| DRONE
+                        DRONE -->|Telemetry| P4
+                        P4 -->|Logs| LOG
+
+                        P3 -->|Realtime push| USER
+                        USER -->|Điều khiển Pause/Stop| P3
+                `
+            },
+            // -------------------- 11. DEPLOYMENT DIAGRAM --------------------
+            11: {
+                title: "11. Deployment Diagram (New)",
+                code: `
+                    graph TD
+                        subgraph Factory["🏭 Factory Floor"]
+                            subgraph MPS_Station["MPS Station"]
+                                PLC_Node[PLC Siemens S7-1200]
+                                Cam_Node[AI Vision Camera]
+                                Robot_Node[Robot FAIRINO]
+                            end
+                            subgraph Edge_Node["Edge Gateway"]
+                                RPi[Raspberry Pi 5]
+                            end
+                        end
+
+                        subgraph Cloud_Infra["☁️ Cloud Infrastructure"]
+                            subgraph App_Server["Application Server"]
+                                Backend[Backend API - FastAPI]
+                                WS[WebSocket Server]
+                            end
+                            subgraph Data_Server["Data Server"]
+                                Postgres[(PostgreSQL)]
+                                Redis[(Redis)]
+                                MQ[MQTT Broker]
+                            end
+                            subgraph Monitoring["Monitoring"]
+                                Grafana[Grafana Dashboard]
+                                ELK[ELK Stack]
+                            end
+                        end
+
+                        subgraph Clients["📱 Client Devices"]
+                            Mobile[Mobile App]
+                            PC[Admin Web]
+                        end
+
+                        Cam_Node -- "Ethernet / Snap7" --> PLC_Node
+                        PLC_Node -- "TCP/IP" --> Robot_Node
+                        PLC_Node -- "OPC UA / REST" --> Backend
+                        Robot_Node -- "REST" --> Backend
+
+                        RPi -- "MAVLink" --> Drone1[Drone 1]
+                        RPi -- "MAVLink" --> Drone2[Drone 2]
+                        RPi -- "MQTT / WS" --> MQ
+                        RPi -- "REST" --> Backend
+
+                        Backend --> Postgres
+                        Backend --> Redis
+                        Backend --> MQ
+                        Backend --> Grafana
+                        Backend --> ELK
+
+                        WS --> Mobile
+                        WS --> PC
+                        Mobile --> Backend
+                        PC --> Backend
+                `
+            }
+        };
+
+        // ================================================================
+        // LOGIC RENDER & ZOOM
+        // ================================================================
+        let currentZoom = 1;
+        let currentId = 1;
+
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default',
+            flowchart: { useMaxWidth: false, htmlLabels: true, curve: 'basis' },
+            sequence: { diagramMarginX: 50, diagramMarginY: 10 },
+            securityLevel: 'loose'
+        });
+
+        function renderDiagram(id) {
+            const container = document.getElementById('mermaid-container');
+            const titleEl = document.getElementById('diagram-title');
+            const data = diagrams[id];
+            if (!data) return;
+
+            container.removeAttribute('data-processed');
+            container.innerHTML = data.code;
+            titleEl.textContent = data.title;
+
+            mermaid.parse(data.code)
+                .then(() => {
+                    mermaid.init(undefined, container);
+                })
+                .catch(err => {
+                    console.error('Mermaid Error:', err);
+                    container.innerHTML = '<p style="color:red;">❌ Lỗi hiển thị sơ đồ. Kiểm tra Console (F12).</p>';
+                });
+
+            resetZoom();
+        }
+
+        function switchDiagram(id) {
+            currentId = id;
+            document.querySelectorAll('.nav-item').forEach(el => {
+                el.classList.toggle('active', parseInt(el.dataset.id) === id);
+            });
+            renderDiagram(id);
+        }
+
+        function applyZoom() {
+            document.getElementById('mermaid-wrapper').style.transform = `scale(${currentZoom})`;
+        }
+        function zoomIn() {
+            currentZoom = Math.min(2.0, currentZoom + 0.1);
+            applyZoom();
+        }
+        function zoomOut() {
+            currentZoom = Math.max(0.3, currentZoom - 0.1);
+            applyZoom();
+        }
+        function resetZoom() {
+            currentZoom = 1;
+            applyZoom();
+        }
+
+        document.querySelectorAll('.nav-item').forEach(el => {
+            el.addEventListener('click', function() {
+                switchDiagram(parseInt(this.dataset.id));
+            });
+        });
+
+        window.addEventListener('DOMContentLoaded', () => renderDiagram(1));
+    </script>
+</body>
+</html>
